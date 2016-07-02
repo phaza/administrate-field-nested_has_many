@@ -10,6 +10,7 @@ module Administrate
       VERSION = "0.1.1"
 
       class Engine < ::Rails::Engine
+        Administrate::Engine.add_javascript "administrate-field-nested_has_many/application"
       end
 
       DEFAULT_ATTRIBUTES = [:id, :_destroy].freeze
@@ -45,7 +46,10 @@ module Administrate
       end
 
       def association_name
-        associated_class_name.underscore.pluralize
+        options.fetch(
+          :association_name,
+          associated_class_name.underscore.pluralize
+        )
       end
 
       def associated_form
